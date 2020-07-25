@@ -14,3 +14,8 @@ Check out the following links for more information:
 - (https://subversion.apache.org/)
 - (https://en.wikipedia.org/wiki/Version_control)
 
+Initial Git Cheat Sheet
+Check out the following links for more information:
+
+The [Linux kernel documentation](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst?id=HEAD) itself, as well as [impassioned](https://commit.style) opinions from other [developers](https://thoughtbot.com/blog/5-useful-tips-for-a-better-commit-message). 
+
