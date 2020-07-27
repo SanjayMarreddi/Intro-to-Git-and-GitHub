@@ -1,0 +1,173 @@
+
+							 	WEEK-3
+
+
+LOCAL REPOSITORY  -> present on our system
+REMOTE REPOSITORY -> present on servers like GITHUB 
+
+> git push  -> git push is used to update the remote repository with our local changes.
+> When we want to update our local repository to reflect changes made in the remote repository,command we would use is git pull.
+> git pull updates the local repository by applying changes made in the remote repository.
+
+
+						     	REMOTES
+ 
+> Remote repositories are a big part of the distributed nature of Git collaboration. It let lots of developers contribute to a project from their own workstations making changes to local copies of the project independently of one another. When they need to share their changes, they can issue git commands to pull code from a remote repository or push code into one. There are a bunch of ways to host remote repositories. As we called out, there is many internet-based Git hosting providers like GitHub, BitBucket or GitLab which offer similar services.
+
+		 				
+						WORKING WITH REMOTES
+
+>> When we call a git clone to get a local copy of a remote repository, Git sets up that remote repository with the default name as "origin".
+ 
+> git remote -v yields two URL's fetch,push. Mostly they will be same.
+
+> But in some cases, you can have the fetch URL use HTTP for read only access, and the push URL use HTTPS or SSH for access control.
+
+> This is fine as long as the contents of the repo that you read when fetching are the same that you write to in pushing. Remote repositories have a name assigned to them, by default, the assigned name is origin. This lets us track more than one remote in the same Git directory.
+
+> If we want to get even more information about our remote, we can call "git remote show origin".
+
+>> Whenever we're operating with remotes, Git uses remote branches to keep copies of the data that's stored in the remote repository. We could have a look at the remote branches that our Git repo is currently tracking by running "git branch -r".
+
+>>> If we want to make a change to a remote branch, Pull the remote branch, merge it with the local branch, then push it back to its origin.
+
+
+						FETCHING NEW CHANGES
+
+> "git fetch" fetches remote updates but doesn't merge; "git pull" fetches remote updates and merges.
+
+> Sometimes due to updates made, we get msg as the local branches "out of date" . This happens when there were commits done to the repo that aren't yet reflected locally. Git doesn't keep remote and local branches in sync automatically, it waits until we execute commands to move data around when we're ready.
+
+> To sync the data, we use the "git fetch" command. This command copies the commits done in the remote repository to the remote branches, so we can see what other people have committed.
+
+> If we want to integrate the branches into our master branch, we can perform a merge operation, which merges the origin/master branch into our local master branch.
+
+>>  We can use git fetch like this to review the changes that happen in the remote repository. If we're happy with them, we can use git merge to integrate them into the local branch. Fetching commits from a remote repository and merging them into your local repository is such a common operation in Git that there's a handy command to let us do it all in one action
+
+
+			
+						UPDATING THE LOCAL REPOSITORY
+
+> Running "git pull" will fetch the remote copy of the current branch and automatically tries to merge it into the current local branch.
+ 
+> Say we have a branch named "exper" in our remote repo. To create a local branch for it we run "git checkout exper"
+
+> As long as there are no conflicts, Git will move the current branch tip up to the target branch tip and combine histories of both commits. So in such cases "git pull" does Fast Forward Merge.
+
+>> If we want to get the contents of remote branches without automatically merging any contents into the local branches, we can call "git remote update". 
+
+>> An "explicit merge" creates a new merge commit. This alters the commit history and explicitly shows where a merge was executed.
+
+
+							SOLVING CONFLICTS 
+
+
+THE PULL-MERGE-PUSH WORKFLOW :-
+
+> Sometimes When we use "git push"  It may not be successful due to updates in Remote Repo. So we need to use "git pull" first to update.
+
+> Also In some cases when we use "git pull" there may be some Coflicts which are supposed to be solved Manually.
+
+> After editing a file to resolve the conflicts , We need to "git add" first followed by "git commit" to succesfully resolve and merge.
+
+> What should you do with the <<<<<<<, =======, and >>>>>>> conflict markers when resolving a merge conflict?
+-> Remove all of the conflict markers and only leave the code as it should be after the merge.
+
+
+
+
+PUSHING REMOTE BRANCHES :-
+
+> We first create a separate bracnh on Local repo and then push into remote .
+
+> We usually work on separate branches when trying to add new features or Refactoring the code instead of using "master" branch.
+
+> Usually once we create a local branch for extra features or some other thing before merging into our local master branch , We push it into our remote repo so that our collaborators can check that.
+
+>> The first time we are pushing a branch to a remote repo, we need to add few more parameters to the "git push"
+
+Ex:- "git push -u origin new_branch_name"
+
+-> u stands for Upstream which refers to remote repos.
+-> origin is the name of the Remote Repository to where we are pushing the branch
+
+
+
+
+REBASING OUR CHANGES:-
+
+> Once we created and pushed a branch into remote repo, after verification by collabs, we can merge that into our master remote branch in two ways:-
+
+1. "git merge"
+2. "git rebase"
+
+> Sometimes merge happes in 3way merge. The problem with the 3 way merges is that because of the split history , It is hard for us to debug when an issue is found in our code.
+
+>> By changing the base where our commits split from the branch history , We can replay the new commits on top of the new base. This allows Git to do a fast forward merge and keep history linear.
+
+> "git rebase branch_we want_set_as_new_base" When we use this git will try to replay our commits after the latest commit in that branch
+
+>> Rebasing means changing the base commit that is used for our branch
+>> To rebase our branch into master branch, We will first switch to that branch.
+-> git checkout name_branch.
+-> git rebase master
+
+>>> “git rebase refactor” Moves the current branch on top of the refactor branch. This makes debugging easier and prevents three-way merges by transferring the completed work from one branch to another.
+
+> Once we merged the branch to master We usually delete the branch in the following ways:
+> " git push --delete origin new_branch_name" To delete a branch from remote repo
+> " git branch -d new_branch_name " To delete a branch from local repo
+
+
+
+
+
+ANOTHER REBASING EXAMPLE:-
+ 
+> One common example of "rebase" is to rebase the changes in the master branch when someone else also made changes and we want to keep history linear. This is very common when you are working on a change thats small enough not to need a separate branch and our collaborators just happened to commit something at the same time.
+
+> We dont want to use "git pull" as it fetches and also merges them using "3way merge". 
+> "git fetch" is used in this cases so that Fast Forward Merge can be made and keep history linear by using "git rebase " later on.
+
+> Once we used "git fetch ", Now we will run "git rebase origin/branch " to rebase our changes against the changes made by our collaborators and keep history linear. Now Git tries to rewind our changes and apply them on top of what was in the origin/master branch.
+
+> If some Conflicts arise while Rebasing We will resolve them Manually and then use "git add file_name " followed by "git rebase --continue"
+
+> Dont forget pushing our changes Time to time using "git push"
+
+>>Generally, "git rebase" is an alternative to "git merge" . Rebasing instead of merging rewrites history and maintains linearity, making for cleaner code.
+
+
+
+
+BEST PRACTICES FOR COLLOBORATION:-
+
+> Always synchronize your branches before starting any work on your own which minimizes the need for rebasing and chances of conflicts.
+
+> Avoid having very large changes that modify a lot of different things
+
+> Dont forget to "pull" and "push" frequently.
+
+> When working on a big change, it makes sense to have a separate feature branch.
+
+> Regularly merge changes made on the master branch back onto the feature branch.
+
+> Have the latest version of the project in the master branch and a stable version of the project on a separate branch.
+
+> You shouldn't rebase changes that have been pushed to remote repos. as they rewrite the branch history 
+
+> Having good commit messages is very important.
+
+> When encountering complex merge conflicts and trying to debug the results:- If I'm dealing with this type of merge conflict, my first step is to work backward and disable everything I've done and then see if the source still works, then I slowly add pieces of code until I hit the problem.
+
+>>It's common practice to keep the latest version in the master branch and the latest stable version in a separate branch.
+
+
+
+
+
+
+
+
+
+
