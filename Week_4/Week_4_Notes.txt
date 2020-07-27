@@ -1,0 +1,181 @@
+							PULL REQUESTS
+
+
+A SIMPLE PULL REQUEST ON GITHUB :
+
+>> Forking is a way of creating a copy of the given repository so that it belongs to our user. In other words, our user will be able to push changes to the forked copy, even when we can't push changes to the other repo. 
+
+> When collaborating on projects hosted on GitHub, the typical workflows is first, create a fork of the repo, and then work on that local fork
+
+> A forked repo is just like a normal repo, except Github knows which repo it forked from. So we can eventually merge our changes back into the main repo by creating a pull request. 
+
+>> A pull request is a commit or series of commits that you send to the owner of the repository so that they incorporate it into their tree. 
+
+> While sending a Pull request, By allowing edits, the maintainer can do it themselves instead of asking us to do it.
+
+
+
+THE TYPICAL PULL REQUEST WORKFLOW ON GITHUB :
+
+> Using GitHub UI is not so great for making larger changes that we want to preview or test. To do that, we'll normally have a local copy of the repo in our computer and work with the forked repo as a remote.
+
+> GitHub tells us that our change can be automatically merged. If this wasn't the case, we'd need to rebase our change against the current branch of the original repo so that it could be merged. 
+
+> While doing a Pull Request, We can also use this box to explain how the change was tested. If the project includes automatic test infrastructure, our pull request should include a tests for our changes and we can state that all test still pass. But if there's no automatic testing, then we can use this box to explain how we tested the change manually.
+
+> Look at the diff that appears at the bottom of the page to confirm our changes.
+ 
+
+
+UPDATING AN EXISTING PULL REQUEST :
+
+> When we send a pull request, it's pretty common to receive some comments from the project maintainers asking for some improvements.
+
+> To update existing Pull request just change the file included in Pull request as per requirement and then use "git push"(to the same branch) to make other commit in the same PULL REQUEST as per the improvement suggested by maintainers. 
+
+> If we wanted to create a separate pull request, we would need to create a new branch instead. 
+
+> Github allows projects to set their contribution guidelines. You'll find a link to them whenever you create a new pull request or issue in a project. So make sure you've read these guidelines and that your pull requests match them. 
+
+
+SQUASHING CHANGES :
+
+> We can rewrite the history even when the commits have been published during Pull Requests as It is only we who have cloned your fork. 
+
+> This is used if say the project maintainers ask us to create a single commit that includes both changes and a more detailed description than the one we submitted earlier. 
+
+> We can do that by using the interactive version of the rebase command called "rebase-i ", as the parameter to the command will pass the "master" branch. So we'll call "git rebase-i master". It opens a text Editor with a list of all selected commits. By changing the first word of each line, we can select what we want to do with the commits
+
+> We have two options for combining commits, squash and fix up. In both cases, the contents of the selected commit are merged into the previous commit in the lisst.
+
+> The difference is what happens with the commit messages. When we choose squash, the commit messages are added together and an editor opens up to let us make any necessary changes. When we choose fix up, the commit message for that commit is discarded
+
+> " git push -f", When we don't want to create a merge. Instead, we want to replace the old commits with the new one.
+
+
+
+
+							CODE REVIEWS
+
+WHAT ARE CODE REVIEWS?
+
+> Doing a code review means going through someone else's code, documentation or configuration and checking that it all makes sense and follows the expected patterns. The goal of a code review is to improve the project by making sure that changes are high quality.
+
+> Code Review tools let us comment on someone else's code. These let us leave feedback on how they could make their code better.
+
+
+THE CODE REVIEW WORKFLOW :
+
+> Sometimes, your reviewer might point out something small, that's not really critical. And the comment is mostly a suggestion for making the code better. These comments are usually prefixed, saying that it's a Nit
+
+> To avoid a lot of back and forth, it's a good idea to refer to a style guide that explains the preferred coding style for the project. For example, lots of Python projects, use the PEP8 style guide.
+
+> In some code reviewing tools, you'll need one of the project maintainers to approve your code before it's submitted. In other tools, you'll just need to get a couple +1s from contributors to the project before you can submit.
+
+
+
+HOW TO USE CODE REVIEWS IN GITHUB : 
+
+> Note that these comments appear in CONVERSATION section.
+
+> We can view all changes requested for the file we created by clicking on the view changes button.
+
+> Once we've addressed all the comments in our code review. Let's save our file and then commit the changes. Since we want this change to be a part of the previous commit, we'll call "git commit -a --amend" , which will edit the original commit.
+
+
+> You might remember that git commit dash dash amend modifies commits. So it's not safe to do with commits that have been pushed to the repo. Using amend is pretty much the same as creating a new commit, and then using an interactive rebase to fix up a change. So, the commit gets replaced by a completely new commit with a completely different commit ID. This means that to push it, we'll need to use the "git push -f" .
+
+>> Remember that forcing pushes is fine for pull request branches because nobody else should have cloned it. 
+
+> If we've taken care of their request, we can ignore the outdated comment and just "resolve" the conversation.
+
+> Always respond to comments from collaborators and reviewers 
+> Nit is a trivial Comment/Suggestion
+
+
+							
+							MANAGING PROJECTS
+
+
+MANAGING COLLOBORATION: 
+
+> The most basic form of this is writing clear code with good comments and documentation for those functions in the code.
+
+>  On top of that, you'll want to create documentation files to let others know how they can interact with your project like the readme.md
+
+> If you're a project maintainer, it's important that you are reply promptly to pull requests and don't let them stagnate
+
+> Another thing to remember when you maintain a project especially if it's an open source project that volunteers are contributing to is that it's important that you understand any changes you accept. 
+
+> If you're contributing to a project, you want to check out the style guide and make sure you follow it. If you own a project, it makes sense to create a style guide so that others know what you're expecting from them. 
+
+>> When it comes to coordinating who does what and when, a common strategy for active software projects is to use an ISSUE TRACKER.
+
+
+TRACKING ISSUES:
+
+> An issue tracker tells us the tasks that need to be done, the state they're in and who's working on them. The system also let's us add comments to the issue, these comments can be super helpful. They can give us more details about the problem, explain a way to solve it, or detail how to test if it's been solved.
+
+
+> We can check the issues and add the issues under the "issues" option in GITHUB 
+
+> The issues in the list all have numbers that identify them. In GitHub, each issue or pull request in a project has a unique number associated with it. So, if we have a pull request with the ID five, there won't be an issue with ID five. 
+
+
+> GitHub will automatically reference issues and pull requests and comments when we mention them using the hash tag number format. 
+
+> For example, if we use #2 in a comment, it will automatically reference the issue we just created.
+
+> If you're fixing an issue through a pull request, it's possible to automatically close the issue directly once the code is merged.
+
+> To do this, you need to include a string like "Closes #4"(If we are resolving issue 4) in your commit message or as a part of the description of your pull request. Once the code gets merged into the main tree, GitHub will automatically close the issue with a message linking it to the new commit.
+
+
+> Before we start working on issues, we need to get the issue assigned to us.Assigning issues to collaborators helps us track who is working on what. By assigning the bug to yourself, you can let others know that you're working on it, so they don't need to.
+
+
+
+CONTINUOUS INTEGRATION :
+
+
+> We can write automated tests to test the code for us and then use a continuous integration or CI system to run those tests automatically. A continuous integration system will build and test our code every time there's a change. 
+
+
+> This means that it will run whenever there's a new commit in the main branch of our code. It will also run for any changes that come in through pull request. 
+
+> In other words, if we have continuous integration configured for our project, we can automatically run our tests using the code in a pull requests 
+
+> Once we have our code automatically built and tested, the next automation step is continuous deployment which is sometimes called continuous delivery or CD. Continuous deployment means the new code is deployed often.
+
+
+> GitHub doesn't offer an integrated solution. Instead, the popular alternative is to use Travis which communicates with GitHub and can access the information from GitHub projects to know which integrations to run. 
+
+
+> There are a bunch of concepts that you'll need to deal with when creating your own CICD. The first one is a concept of pipelines. Pipelines specify the steps that need to run to get the result you want.
+
+
+> Another concept that turns up when doing CICD is artifacts. This is the name used to describe any files that are generated as part of the pipeline. 
+
+> This typically includes the compiled versions of the code but can include other generated files like PDFs for the documentation or OS specific packages for easy installation.
+
+>>So two things to remember:-
+	First, make sure the authorized entities for the test servers are not the same entities authorized to deploy on the production servers. 
+	Second, always have a plan to recover your access in case your pipeline gets compromised.
+	
+
+
+>> Keywords such as closes or resolves followed by a hashtag and the issue number will tell Git to autolink to the issue with the provided ID number.
+
+>> Continuous Delivery means new code is often deployed with the goal of avoiding rollouts with lots of changes between two versions.
+
+
+
+
+
+
+
+
+
+
+
+
